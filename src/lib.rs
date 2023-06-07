@@ -31,12 +31,12 @@ impl Display for RPS {
 impl PartialOrd<Self> for RPS {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         match (self, other) {
-            (Self::Rock, Self::Paper) => Some(Ordering::Greater),
-            (Self::Rock, Self::Scissors) => Some(Ordering::Less),
-            (Self::Paper, Self::Rock) => Some(Ordering::Less),
-            (Self::Paper, Self::Scissors) => Some(Ordering::Greater),
-            (Self::Scissors, Self::Rock) => Some(Ordering::Greater),
-            (Self::Scissors, Self::Paper) => Some(Ordering::Less),
+            (Self::Rock, Self::Paper) => Some(Ordering::Less),
+            (Self::Rock, Self::Scissors) => Some(Ordering::Greater),
+            (Self::Paper, Self::Rock) => Some(Ordering::Greater),
+            (Self::Paper, Self::Scissors) => Some(Ordering::Less),
+            (Self::Scissors, Self::Rock) => Some(Ordering::Less),
+            (Self::Scissors, Self::Paper) => Some(Ordering::Greater),
             (_, _) => None,
         }
     }
