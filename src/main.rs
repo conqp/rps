@@ -44,7 +44,7 @@ fn main() {
 fn read_user() -> RPS {
     loop {
         print!("Your selection (r/p/s): ");
-        let _ = stdout().flush();
+        stdout().flush().expect("Could not flush STDOUT.");
         let mut buf = String::new();
 
         if stdin().read_line(&mut buf).is_ok() {
