@@ -14,19 +14,19 @@ fn main() {
         }
 
         let computer: RPS = random();
-        let user = read_user();
+        let player = get_plyer_input();
 
-        match user.cmp(&computer) {
+        match player.cmp(&computer) {
             Ordering::Equal => {
-                println!("Draw: {} = {}", user, computer);
+                println!("Draw: {} = {}", player, computer);
                 continue;
             }
             Ordering::Less => {
-                println!("You lost: {} < {}", user, computer);
+                println!("You lost: {} < {}", player, computer);
                 score -= 1;
             }
             Ordering::Greater => {
-                println!("You won: {} > {}", user, computer);
+                println!("You won: {} > {}", player, computer);
                 score += 1;
             }
         }
@@ -41,7 +41,7 @@ fn main() {
     }
 }
 
-fn read_user() -> RPS {
+fn get_plyer_input() -> RPS {
     loop {
         print!("Your selection (r/p/s): ");
         stdout().flush().expect("Could not flush STDOUT.");
