@@ -1,5 +1,5 @@
 use rand::random;
-use rps::RPS;
+use rps::Symbol;
 use std::cmp::Ordering;
 use std::io::{stdin, stdout, Write};
 use std::str::FromStr;
@@ -13,7 +13,7 @@ fn main() {
             break;
         }
 
-        let computer: RPS = random();
+        let computer: Symbol = random();
         let player = get_plyer_input();
 
         match player.cmp(&computer) {
@@ -41,14 +41,14 @@ fn main() {
     }
 }
 
-fn get_plyer_input() -> RPS {
+fn get_plyer_input() -> Symbol {
     loop {
         print!("Your selection (r/p/s): ");
         stdout().flush().expect("Could not flush STDOUT.");
         let mut buf = String::new();
 
         if stdin().read_line(&mut buf).is_ok() {
-            match RPS::from_str(&buf) {
+            match Symbol::from_str(&buf) {
                 Ok(rps) => return rps,
                 Err(error) => println!("{}: {}", error, buf),
             }

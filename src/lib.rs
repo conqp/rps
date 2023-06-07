@@ -7,13 +7,13 @@ use std::fmt::{Debug, Display, Formatter};
 use std::str::FromStr;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum RPS {
+pub enum Symbol {
     Rock,
     Paper,
     Scissors,
 }
 
-impl Display for RPS {
+impl Display for Symbol {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
@@ -27,7 +27,7 @@ impl Display for RPS {
     }
 }
 
-impl PartialOrd<Self> for RPS {
+impl PartialOrd<Self> for Symbol {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         match (self, other) {
             (Self::Rock, Self::Paper) => Some(Ordering::Less),
@@ -41,7 +41,7 @@ impl PartialOrd<Self> for RPS {
     }
 }
 
-impl Ord for RPS {
+impl Ord for Symbol {
     fn cmp(&self, other: &Self) -> Ordering {
         match self.partial_cmp(other) {
             Some(order) => order,
@@ -50,17 +50,17 @@ impl Ord for RPS {
     }
 }
 
-impl Distribution<RPS> for Standard {
-    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> RPS {
+impl Distribution<Symbol> for Standard {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Symbol {
         match rng.gen_range(0..=2) {
-            0 => RPS::Rock,
-            1 => RPS::Paper,
-            _ => RPS::Scissors,
+            0 => Symbol::Rock,
+            1 => Symbol::Paper,
+            _ => Symbol::Scissors,
         }
     }
 }
 
-impl FromStr for RPS {
+impl FromStr for Symbol {
     type Err = &'static str;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
