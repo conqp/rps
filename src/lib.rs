@@ -4,7 +4,6 @@ use rand::{
 };
 use std::cmp::Ordering;
 use std::fmt::{Debug, Display, Formatter};
-
 use std::str::FromStr;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
