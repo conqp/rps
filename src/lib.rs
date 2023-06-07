@@ -43,10 +43,7 @@ impl PartialOrd<Self> for Symbol {
 
 impl Ord for Symbol {
     fn cmp(&self, other: &Self) -> Ordering {
-        match self.partial_cmp(other) {
-            Some(order) => order,
-            None => Ordering::Equal,
-        }
+        self.partial_cmp(other).unwrap_or(Ordering::Equal)
     }
 }
 
