@@ -1,31 +1,32 @@
-use rand::random;
-use rps::Symbol;
+use rand::Rng;
+use rps::{RoundResult, Symbol};
 use std::cmp::Ordering;
-use std::io::{stdin, stdout, Write};
+use std::io::{stdin, stdout, BufRead, BufReader, BufWriter, Write};
 use std::str::FromStr;
 
 fn main() {
     let mut rounds: u8 = 0;
     let mut score: i8 = 0;
+    let mut rng = rand::thread_rng();
 
     loop {
         if rounds >= 3 {
             break;
         }
 
-        let computer: Symbol = random();
+        let computer: Symbol = rng.gen();
         let player = get_plyer_input();
 
-        match player.cmp(&computer) {
-            Ordering::Equal => {
+        match player.compare(&computer) {
+            RoundResult::Draw => {
                 println!("Draw: {} = {}", player, computer);
                 continue;
             }
-            Ordering::Less => {
+            RoundResult::RightWins => {
                 println!("You lost: {} < {}", player, computer);
                 score -= 1;
             }
-            Ordering::Greater => {
+            RoundResult::LeftWins => {
                 println!("You won: {} > {}", player, computer);
                 score += 1;
             }
@@ -42,12 +43,15 @@ fn main() {
 }
 
 fn get_plyer_input() -> Symbol {
+    let mut stdout = BufWriter::new(stdout().lock());
+    let mut stdin = BufReader::new(stdin().lock());
+
     loop {
-        print!("Your selection (r/p/s): ");
-        stdout().flush().expect("Could not flush STDOUT.");
+        write!(stdout, "Your selection (r/p/s): ").expect("Could not write to STDOUT.");
+        stdout.flush().expect("Could not flush STDOUT.");
         let mut buf = String::new();
 
-        if stdin().read_line(&mut buf).is_ok() {
+        if stdin.read_line(&mut buf).is_ok() {
             match Symbol::from_str(&buf) {
                 Ok(rps) => return rps,
                 Err(error) => println!("{}: {}", error, buf),
