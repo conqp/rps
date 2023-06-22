@@ -68,9 +68,9 @@ impl FromStr for Symbol {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.trim().to_lowercase().as_str() {
-            "r" => Ok(Self::Rock),
-            "p" => Ok(Self::Paper),
-            "s" => Ok(Self::Scissors),
+            "r" | "🪨" => Ok(Self::Rock),
+            "p" | "🧻" => Ok(Self::Paper),
+            "s" | "✀" => Ok(Self::Scissors),
             _ => Err("invalid string"),
         }
     }
