@@ -1,7 +1,7 @@
 //! A Rock-Paper-Scissors game.
 
 use std::cmp::Ordering;
-use std::io::{stdin, stdout, BufRead, BufReader, BufWriter, Write};
+use std::io::{stdin, stdout, BufRead, Write};
 use std::str::FromStr;
 
 use rand::Rng;
@@ -43,8 +43,8 @@ fn main() {
 }
 
 fn get_player_input() -> Symbol {
-    let mut stdout = BufWriter::new(stdout().lock());
-    let mut stdin = BufReader::new(stdin().lock());
+    let mut stdout = stdout().lock();
+    let mut stdin = stdin().lock();
 
     loop {
         write!(stdout, "Your selection (r/p/s): ").expect("Could not write to STDOUT.");
