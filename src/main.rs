@@ -53,7 +53,7 @@ fn get_player_input() -> Symbol {
         if stdin.read_line(&mut buf).is_ok() {
             match Symbol::from_str(&buf) {
                 Ok(rps) => return rps,
-                Err(error) => println!("{error}: {buf}"),
+                Err(()) => println!("Invalid input: {buf}"),
             }
         }
     }

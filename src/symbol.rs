@@ -65,14 +65,14 @@ impl Distribution<Symbol> for StandardUniform {
 }
 
 impl FromStr for Symbol {
-    type Err = &'static str;
+    type Err = ();
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.trim().to_lowercase().as_str() {
             "r" | "🪨" => Ok(Self::Rock),
             "p" | "🧻" => Ok(Self::Paper),
             "s" | "✀" => Ok(Self::Scissors),
-            _ => Err("invalid string"),
+            _ => Err(()),
         }
     }
 }
