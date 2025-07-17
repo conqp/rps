@@ -22,7 +22,6 @@ fn main() {
         match player.compare(computer) {
             RoundResult::Draw => {
                 println!("Draw: {player} = {computer}");
-                continue;
             }
             RoundResult::RightWins => {
                 println!("You lost: {player} < {computer}");
