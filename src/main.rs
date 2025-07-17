@@ -9,16 +9,13 @@ use symbol::{RoundResult, Symbol};
 
 mod symbol;
 
+const ROUNDS: usize = 3;
+
 fn main() {
-    let mut rounds: u8 = 0;
     let mut score: i8 = 0;
     let mut rng = rand::rng();
 
-    loop {
-        if rounds >= 3 {
-            break;
-        }
-
+    for _ in 1..=ROUNDS {
         let computer: Symbol = rng.random();
         let player = get_player_input();
 
@@ -36,8 +33,6 @@ fn main() {
                 score += 1;
             }
         }
-
-        rounds += 1;
     }
 
     match score.cmp(&0) {
