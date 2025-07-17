@@ -1,15 +1,9 @@
+use std::cmp::Ordering;
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
 use rand::distr::{Distribution, StandardUniform};
 use rand::Rng;
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum RoundResult {
-    Draw,
-    LeftWins,
-    RightWins,
-}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Symbol {
@@ -18,24 +12,25 @@ pub enum Symbol {
     Scissors,
 }
 
-impl Symbol {
-    pub const fn compare(self, other: Self) -> RoundResult {
-        if self.wins_against(other) {
-            RoundResult::LeftWins
-        } else if other.wins_against(self) {
-            RoundResult::RightWins
-        } else {
-            RoundResult::Draw
+impl Ord for Symbol {
+    fn cmp(&self, other: &Self) -> Ordering {
+        match (self, other) {
+            (Self::Rock, Self::Rock)
+            | (Self::Paper, Self::Paper)
+            | (Self::Scissors, Self::Scissors) => Ordering::Equal,
+            (Self::Rock, Self::Paper)
+            | (Self::Paper, Self::Scissors)
+            | (Self::Scissors, Self::Rock) => Ordering::Less,
+            (Self::Paper, Self::Rock)
+            | (Self::Scissors, Self::Paper)
+            | (Self::Rock, Self::Scissors) => Ordering::Greater,
         }
     }
+}
 
-    pub const fn wins_against(self, other: Self) -> bool {
-        matches!(
-            (self, other),
-            (Self::Rock, Self::Scissors)
-                | (Self::Paper, Self::Rock)
-                | (Self::Scissors, Self::Paper)
-        )
+impl PartialOrd for Symbol {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
     }
 }
 

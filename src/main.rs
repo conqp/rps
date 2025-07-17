@@ -5,7 +5,7 @@ use std::io::{stdin, stdout, BufRead, BufReader, BufWriter, Write};
 use std::str::FromStr;
 
 use rand::Rng;
-use symbol::{RoundResult, Symbol};
+use symbol::Symbol;
 
 mod symbol;
 
@@ -19,15 +19,15 @@ fn main() {
         let computer: Symbol = rng.random();
         let player = get_player_input();
 
-        match player.compare(computer) {
-            RoundResult::Draw => {
+        match player.cmp(&computer) {
+            Ordering::Equal => {
                 println!("Draw: {player} = {computer}");
             }
-            RoundResult::RightWins => {
+            Ordering::Less => {
                 println!("You lost: {player} < {computer}");
                 score -= 1;
             }
-            RoundResult::LeftWins => {
+            Ordering::Greater => {
                 println!("You won: {player} > {computer}");
                 score += 1;
             }
