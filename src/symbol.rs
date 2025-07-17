@@ -12,9 +12,9 @@ pub enum Symbol {
     Scissors,
 }
 
-impl Ord for Symbol {
-    fn cmp(&self, other: &Self) -> Ordering {
-        match (self, other) {
+impl PartialOrd for Symbol {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(match (self, other) {
             (Self::Rock, Self::Rock)
             | (Self::Paper, Self::Paper)
             | (Self::Scissors, Self::Scissors) => Ordering::Equal,
@@ -24,13 +24,7 @@ impl Ord for Symbol {
             (Self::Paper, Self::Rock)
             | (Self::Scissors, Self::Paper)
             | (Self::Rock, Self::Scissors) => Ordering::Greater,
-        }
-    }
-}
-
-impl PartialOrd for Symbol {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
+        })
     }
 }
 

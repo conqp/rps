@@ -19,18 +19,19 @@ fn main() {
         let computer: Symbol = rng.random();
         let player = get_player_input();
 
-        match player.cmp(&computer) {
-            Ordering::Equal => {
+        match player.partial_cmp(&computer) {
+            Some(Ordering::Equal) => {
                 println!("Draw: {player} = {computer}");
             }
-            Ordering::Less => {
+            Some(Ordering::Less) => {
                 println!("You lost: {player} < {computer}");
                 score -= 1;
             }
-            Ordering::Greater => {
+            Some(Ordering::Greater) => {
                 println!("You won: {player} > {computer}");
                 score += 1;
             }
+            _ => unreachable!(),
         }
     }
 
