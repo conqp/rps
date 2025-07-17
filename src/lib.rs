@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
-use rand::distributions::{Distribution, Standard};
+use rand::distr::{Distribution, StandardUniform};
 use rand::Rng;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -52,7 +52,7 @@ impl Display for Symbol {
     }
 }
 
-impl Distribution<Symbol> for Standard {
+impl Distribution<Symbol> for StandardUniform {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Symbol {
         match rng.gen_range(0..=2) {
             0 => Symbol::Rock,
