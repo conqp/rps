@@ -19,7 +19,7 @@ pub enum Symbol {
 }
 
 impl Symbol {
-    pub fn compare(&self, other: &Self) -> RoundResult {
+    pub const fn compare(self, other: Self) -> RoundResult {
         if self.wins_against(other) {
             RoundResult::LeftWins
         } else if other.wins_against(self) {
@@ -28,7 +28,8 @@ impl Symbol {
             RoundResult::Draw
         }
     }
-    pub fn wins_against(&self, other: &Self) -> bool {
+
+    pub const fn wins_against(self, other: Self) -> bool {
         matches!(
             (self, other),
             (Self::Rock, Self::Scissors)
@@ -54,10 +55,11 @@ impl Display for Symbol {
 
 impl Distribution<Symbol> for StandardUniform {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Symbol {
-        match rng.gen_range(0..=2) {
+        match rng.random_range(0..=2) {
             0 => Symbol::Rock,
             1 => Symbol::Paper,
-            _ => Symbol::Scissors,
+            2 => Symbol::Scissors,
+            _ => unreachable!(),
         }
     }
 }
