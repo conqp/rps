@@ -1,8 +1,9 @@
-use rand::Rng;
-use rps::{RoundResult, Symbol};
 use std::cmp::Ordering;
 use std::io::{stdin, stdout, BufRead, BufReader, BufWriter, Write};
 use std::str::FromStr;
+
+use rand::Rng;
+use rps::{RoundResult, Symbol};
 
 fn main() {
     let mut rounds: u8 = 0;

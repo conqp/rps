@@ -1,9 +1,8 @@
-use rand::{
-    distributions::{Distribution, Standard},
-    Rng,
-};
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
+
+use rand::distributions::{Distribution, Standard};
+use rand::Rng;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum RoundResult {
