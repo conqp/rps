@@ -3,7 +3,9 @@ use std::io::{stdin, stdout, BufRead, BufReader, BufWriter, Write};
 use std::str::FromStr;
 
 use rand::Rng;
-use rps::{RoundResult, Symbol};
+use symbol::{RoundResult, Symbol};
+
+mod symbol;
 
 fn main() {
     let mut rounds: u8 = 0;
