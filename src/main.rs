@@ -2,7 +2,6 @@
 
 use std::cmp::Ordering;
 use std::io::{stdin, stdout, BufRead, Write};
-use std::str::FromStr;
 
 use rand::Rng;
 use symbol::Symbol;
@@ -52,7 +51,7 @@ fn get_player_input() -> Symbol {
         let mut buf = String::new();
 
         if stdin.read_line(&mut buf).is_ok() {
-            match Symbol::from_str(&buf) {
+            match buf.parse() {
                 Ok(rps) => return rps,
                 Err(()) => println!("Invalid input: {buf}"),
             }
