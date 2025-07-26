@@ -12,6 +12,17 @@ pub enum Symbol {
     Scissors,
 }
 
+impl Symbol {
+    /// Return a representative UTF-8 character.
+    pub const fn as_char(self) -> char {
+        match self {
+            Self::Rock => '🪨',
+            Self::Paper => '🧻',
+            Self::Scissors => '✀',
+        }
+    }
+}
+
 impl PartialOrd for Symbol {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(match (self, other) {
@@ -30,15 +41,7 @@ impl PartialOrd for Symbol {
 
 impl Display for Symbol {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                Self::Rock => '🪨',
-                Self::Paper => '🧻',
-                Self::Scissors => '✀',
-            }
-        )
+        write!(f, "{}", self.as_char())
     }
 }
 
