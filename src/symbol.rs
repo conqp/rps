@@ -60,7 +60,7 @@ impl FromStr for Symbol {
     type Err = ();
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s.trim().to_lowercase().as_str() {
+        match s {
             "r" | "🪨" => Ok(Self::Rock),
             "p" | "🧻" => Ok(Self::Paper),
             "s" | "✀" => Ok(Self::Scissors),

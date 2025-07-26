@@ -52,7 +52,7 @@ fn get_player_input(buf: &mut String) -> Symbol {
         buf.clear();
 
         if stdin.read_line(buf).is_ok() {
-            match buf.parse() {
+            match buf.trim().to_lowercase().parse() {
                 Ok(rps) => return rps,
                 Err(()) => println!("Invalid input: {buf}"),
             }
